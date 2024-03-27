@@ -79,7 +79,10 @@ curl -s "localhost:8000/v1.0/process-models/approvals:basic-approval/files/reque
 curl -X PUT -H 'Content-type: application/json' -d '{"request_item": "apple"}' "localhost:8000/v1.0/tasks/24/64c3738c-0dc1-48f6-98fc-7db41e03dab3" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
 
 # next the process instance will proceed to the approval task.
-# its form can be inspected and the task submitted in the same way as above
+# its form can be inspected and the task submitted in the same way as above.
+# note that normally the same user who started the process instance would not be able to complete the approval,
+# but in this case the user whose token we are using is also in the "admin" group,
+# so they have access to complete the approval task in the admin lane.
 curl -s "localhost:8000/v1.0/process-models/approvals:basic-approval/files/approval-schema.json" -H "Authorization: Bearer $(cat /tmp/t)" | jq -r .file_contents
 curl -X PUT -H 'Content-type: application/json' -d '{"is_approved": false, "comments": "looks good to me"}' "localhost:8000/v1.0/tasks/24/f796b2d5-8d7c-423f-ac1a-2cfbc95f4c04" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
 
