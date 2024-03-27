@@ -4,6 +4,11 @@ users:
     email: admin@spiffworkflow.org
     password: admin
     preferred_username: Admin
+  nelson:
+    service: local_open_id
+    email: nelson@example.com
+    password: nelson
+    preferred_username: Nelson
   patrick:
     service: local_open_id
     email: patrick@example.com
@@ -17,7 +22,7 @@ users:
 
 groups:
   admin:
-    users: [admin@spiffworkflow.org, patrick@example.com]
+    users: [admin@spiffworkflow.org, nelson@example.com, patrick@example.com]
   testing:
     users: [testing@example.com]
 
