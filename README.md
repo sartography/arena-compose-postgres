@@ -35,6 +35,8 @@ Health checks are configured for the `spiffworkflow-backend` and `spiffdb` servi
 ## Interacting with the API
 
 The api is available at localhost:8000/v1.0 if you run `make up` in this repo.
+This example uses an approval process to show how to navigate tasks that need to wait for human interaction.
+To get an idea of how the process works, you might want to view the diagram and run the process at http://localhost:8001/process-models/approvals:basic-approval before hammering the API.
 
 Some of the followiong commands use `jq`, a useful tool for parsing JSON, in case you want to follow along with that by installing it.
 
