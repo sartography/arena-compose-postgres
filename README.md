@@ -32,6 +32,14 @@ The default username is `spiffuser` and the password is `spiffpass`, as configur
 
 Health checks are configured for the `spiffworkflow-backend` and `spiffdb` services to ensure they are ready before dependent services start.
 
+## Interacting with the API
+
+
+```sh
+# get a token and store it in a file
+./bin/get_token admin > /tmp/t
+```
+
 ### Troubleshooting:
 
 If you encounter any issues with the services, check the logs using `docker-compose logs`.
