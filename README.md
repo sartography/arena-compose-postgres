@@ -34,9 +34,11 @@ Health checks are configured for the `spiffworkflow-backend` and `spiffdb` servi
 
 ## Interacting with the API
 
-```sh
-# the api is available at localhost:8000/v1.0 if you run `make up` in this repo.
+The api is available at localhost:8000/v1.0 if you run `make up` in this repo.
 
+Some of the followiong commands use `jq`, a useful tool for parsing JSON, in case you want to follow along with that by installing it.
+
+```sh
 # use a little script to get a token from the nonproduction openid server built in to spiffworkflow-backend and store it in a file.
 # note that spiffworkflow supports any openid system, and this built in server should never be used in production.
 ./bin/get_token admin > /tmp/t
@@ -74,16 +76,16 @@ curl -s "localhost:8000/v1.0/process-models/approvals:basic-approval/files/reque
 # submit the task based on the information from the tasks response
 curl -X PUT -H 'Content-type: application/json' -d '{"request_item": "apple"}' "localhost:8000/v1.0/tasks/24/64c3738c-0dc1-48f6-98fc-7db41e03dab3" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
 
-# next the process instance will proceed to the approval task. its form can be inspected and the task submitted in the same way
+# next the process instance will proceed to the approval task.
+# its form can be inspected and the task submitted in the same way as above
 curl -s "localhost:8000/v1.0/process-models/approvals:basic-approval/files/approval-schema.json" -H "Authorization: Bearer $(cat /tmp/t)" | jq -r .file_contents
 curl -X PUT -H 'Content-type: application/json' -d '{"is_approved": false, "comments": "looks good to me"}' "localhost:8000/v1.0/tasks/24/f796b2d5-8d7c-423f-ac1a-2cfbc95f4c04" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
 
-# at this point, after the two PUT requests, you can check on the instance, and it will hopefully be completed if you said is_approved false
+# at this point, after the two PUT requests, you can check on the instance,
+# and it will hopefully be completed if you said is_approved false
 curl -s localhost:8000/v1.0/process-instances/approvals:basic-approval/24 -H "Authorization: Bearer $(cat /tmp/t)" | jq .
-
-# if you approved it, the instance will be waiting on a final manual task that is just giving you a message about how you approved the item
 ```
-
+If you approved it by setting is_approved to `true`, the instance will be waiting on a final manual task that is just giving you a message about how you approved the item.
 Hopefully this has been helpful in describing how to access some of the important functionality via the API.
 
 ### Troubleshooting:
