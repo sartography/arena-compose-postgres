@@ -34,11 +34,57 @@ Health checks are configured for the `spiffworkflow-backend` and `spiffdb` servi
 
 ## Interacting with the API
 
-
 ```sh
-# get a token and store it in a file
+# the api is available at localhost:8000/v1.0 if you run `make up` in this repo.
+
+# use a little script to get a token from the nonproduction openid server built in to spiffworkflow-backend and store it in a file.
+# note that spiffworkflow supports any openid system, and this built in server should never be used in production.
 ./bin/get_token admin > /tmp/t
+
+# create a process instance
+curl -s -X POST localhost:8000/v1.0/process-instances/approvals:basic-approval -H "Authorization: Bearer $(cat /tmp/t)"
+
+# let's assume that the previous request returned id 24. run that instance
+curl -s -X POST localhost:8000/v1.0/process-instances/approvals:basic-approval/24/run -H "Authorization: Bearer $(cat /tmp/t)"
+
+# it requires some human interaction. fetch the tasks that might need completing
+curl -s "localhost:8000/v1.0/tasks?process_instance_id=24" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
+
+# the tasks API will return json like this:
+# {
+#   "results": [
+#     {
+#       "id": "64c3738c-0dc1-48f6-98fc-7db41e03dab3",
+#       "form_file_name": "request-schema.json",
+#       "task_type": "UserTask",
+#       "ui_form_file_name": "request-uischema.json",
+#       "task_status": "READY",
+#       [SNIP]
+#       "assigned_user_group_identifier": null,
+#       "potential_owner_usernames": "admin@spiffworkflow.org"
+#     }
+#   ],
+# }
+
+# it looks like this task uses the request-schema.json form. let's fetch it.
+curl -s "localhost:8000/v1.0/process-models/approvals:basic-approval/files/request-schema.json" -H "Authorization: Bearer $(cat /tmp/t)" | jq -r .file_contents
+
+# this response tells us that we need a request_item when submitting the task
+
+# submit the task based on the information from the tasks response
+curl -X PUT -H 'Content-type: application/json' -d '{"request_item": "apple"}' "localhost:8000/v1.0/tasks/24/64c3738c-0dc1-48f6-98fc-7db41e03dab3" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
+
+# next the process instance will proceed to the approval task. its form can be inspected and the task submitted in the same way
+curl -s "localhost:8000/v1.0/process-models/approvals:basic-approval/files/approval-schema.json" -H "Authorization: Bearer $(cat /tmp/t)" | jq -r .file_contents
+curl -X PUT -H 'Content-type: application/json' -d '{"is_approved": false, "comments": "looks good to me"}' "localhost:8000/v1.0/tasks/24/f796b2d5-8d7c-423f-ac1a-2cfbc95f4c04" -H "Authorization: Bearer $(cat /tmp/t)" | jq .
+
+# at this point, after the two PUT requests, you can check on the instance, and it will hopefully be completed if you said is_approved false
+curl -s localhost:8000/v1.0/process-instances/approvals:basic-approval/24 -H "Authorization: Bearer $(cat /tmp/t)" | jq .
+
+# if you approved it, the instance will be waiting on a final manual task that is just giving you a message about how you approved the item
 ```
+
+Hopefully this has been helpful in describing how to access some of the important functionality via the API.
 
 ### Troubleshooting:
 
