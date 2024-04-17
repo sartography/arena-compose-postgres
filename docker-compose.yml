@@ -35,6 +35,7 @@ services:
       SPIFFWORKFLOW_BACKEND_CONNECTOR_PROXY_URL: "http://spiffworkflow-connector:8004"
       SPIFFWORKFLOW_BACKEND_DATABASE_TYPE: "postgres"
       SPIFFWORKFLOW_BACKEND_DATABASE_URI: "postgresql://spiffuser:spiffpass@spiffdb:5432/spiffworkflow"
+      SPIFFWORKFLOW_BACKEND_EXTENSIONS_API_ENABLED: "true"
       SPIFFWORKFLOW_BACKEND_LOAD_FIXTURE_DATA: "false"
       SPIFFWORKFLOW_BACKEND_LOG_LEVEL: "DEBUG"
       SPIFFWORKFLOW_BACKEND_OPEN_ID_CLIENT_ID: "spiffworkflow-backend"
