@@ -16,6 +16,9 @@ services:
       - "${SPIFFWORKFLOW_FRONTEND_PORT:-8001}:${SPIFFWORKFLOW_FRONTEND_PORT:-8001}/tcp"
 
   spiffworkflow-backend:
+    depends_on:
+      spiffdb:
+        condition: service_healthy
     container_name: spiffworkflow-backend
     image: ghcr.io/sartography/spiffworkflow-backend:main-latest
     user: ${RUN_AS:-0:0}
@@ -87,7 +90,7 @@ services:
       timeout: 5s
       retries: 20
 
-  spiffworkflow-proxy:
+  nginx-proxy:
     container_name: proxy
     image: nginx:latest
     ports:
