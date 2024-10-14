@@ -10,7 +10,7 @@ help:  ## Show this help message
 	@grep -Eh '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m  %-30s\033[0m %s\n", $$1, $$2}'
  
 start:  ## Start SpiffWorkflow for local development
-	@docker compose -p $(docker_prefix) up
+	@docker compose -p $(docker_prefix) up -d
 
 up:  ## Alias for start
 up: start
