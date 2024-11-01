@@ -42,7 +42,7 @@
       <bpmn:outgoing>Flow_0yhphwi</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0axwlk2" sourceRef="Gateway_did_approve" targetRef="Activity_1c22616">
-      <bpmn:conditionExpression>is_approved == True</bpmn:conditionExpression>
+      <bpmn:conditionExpression>get_task_data_value("is_approved", False) == True</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0yhphwi" sourceRef="Gateway_did_approve" targetRef="Event_1y0249o" />
     <bpmn:endEvent id="EndEvent_1">
@@ -55,13 +55,6 @@
     <bpmn:endEvent id="Event_1y0249o">
       <bpmn:incoming>Flow_0yhphwi</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:manualTask id="Activity_1c22616" name="You approved">
-      <bpmn:extensionElements>
-        <spiffworkflow:instructionsForEndUser>By the way, you approved. It will all be on you.</spiffworkflow:instructionsForEndUser>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0axwlk2</bpmn:incoming>
-      <bpmn:outgoing>Flow_1nv6x7q</bpmn:outgoing>
-    </bpmn:manualTask>
     <bpmn:userTask id="Activity_0qpzdpu" name="Submit request">
       <bpmn:extensionElements>
         <spiffworkflow:instructionsForEndUser>This is a request for something. What it is, who knows. You could make a form for that in a more complete example.</spiffworkflow:instructionsForEndUser>
@@ -73,6 +66,13 @@
       <bpmn:incoming>Flow_17db3yp</bpmn:incoming>
       <bpmn:outgoing>Flow_12pkbxb</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:manualTask id="Activity_1c22616" name="You approved">
+      <bpmn:extensionElements>
+        <spiffworkflow:instructionsForEndUser>By the way, you approved. It will all be on you.</spiffworkflow:instructionsForEndUser>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0axwlk2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nv6x7q</bpmn:outgoing>
+    </bpmn:manualTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_approval">
@@ -105,11 +105,11 @@
       <bpmndi:BPMNShape id="Event_1y0249o_di" bpmnElement="Event_1y0249o">
         <dc:Bounds x="682" y="262" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0cykmm0_di" bpmnElement="Activity_1c22616">
-        <dc:Bounds x="540" y="130" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0lh4c5p_di" bpmnElement="Activity_0qpzdpu">
         <dc:Bounds x="116" y="-31" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cykmm0_di" bpmnElement="Activity_1c22616">
+        <dc:Bounds x="550" y="130" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17db3yp_di" bpmnElement="Flow_17db3yp">
         <di:waypoint x="61" y="9" />
@@ -126,7 +126,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0axwlk2_di" bpmnElement="Flow_0axwlk2">
         <di:waypoint x="515" y="170" />
-        <di:waypoint x="540" y="170" />
+        <di:waypoint x="550" y="170" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0yhphwi_di" bpmnElement="Flow_0yhphwi">
         <di:waypoint x="490" y="195" />
@@ -134,7 +134,7 @@
         <di:waypoint x="682" y="280" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1nv6x7q_di" bpmnElement="Flow_1nv6x7q">
-        <di:waypoint x="640" y="170" />
+        <di:waypoint x="650" y="170" />
         <di:waypoint x="682" y="170" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
