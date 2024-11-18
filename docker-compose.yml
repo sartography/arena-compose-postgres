@@ -52,7 +52,7 @@ services:
       - ./process_models:/app/process_models
       - spiffworkflow_backend_db:/app/db_volume
     healthcheck:
-      test: "curl ${SPIFFWORKFLOW_PROTOCOL:-http}://${SPIFFWORKFLOW_HOST:-localhost}:${SPIFFWORKFLOW_BACKEND_PORT:-8000}/api/v1.0/status --fail"
+      test: "curl http://localhost:${SPIFFWORKFLOW_BACKEND_PORT:-8000}/api/v1.0/status --fail"
       interval: 10s
       timeout: 5s
       retries: 20
@@ -84,7 +84,7 @@ services:
     ports:
       - "${SPIFF_CONNECTOR_PORT:-8004}:${SPIFF_CONNECTOR_PORT:-8004}/tcp"
     healthcheck:
-      test: "curl ${SPIFFWORKFLOW_PROTOCOL:-http}://${SPIFFWORKFLOW_HOST:-localhost}:${SPIFF_CONNECTOR_PORT:-8004}/liveness --fail"
+      test: "curl http://localhost:${SPIFF_CONNECTOR_PORT:-8004}/liveness --fail"
       interval: 10s
       timeout: 5s
       retries: 20
