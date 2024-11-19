@@ -1,6 +1,3 @@
-include configs/spiffworkflow-backend.env
-include configs/spiffworkflow-frontend.env
-
 # if the directory is called something other than the repo name, let's still call
 # the docker project by something we can refer to later.
 docker_prefix = "bpmn"
