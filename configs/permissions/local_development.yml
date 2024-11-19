@@ -1,7 +1,7 @@
 users:
   admin:
     service: local_open_id
-    email: admin@spiffworkflow.org
+    email: admin@example.com
     password: admin
     preferred_username: Admin
   nelson:
@@ -22,7 +22,7 @@ users:
 
 groups:
   admin:
-    users: [admin@spiffworkflow.org, nelson@example.com, patrick@example.com]
+    users: [admin@example.com, nelson@example.com, patrick@example.com]
   testing:
     users: [testing@example.com]
 
