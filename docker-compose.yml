@@ -11,7 +11,7 @@ services:
       APPLICATION_ROOT: "/"
       PORT0: "${SPIFFWORKFLOW_FRONTEND_PORT:-8001}"
       SPIFFWORKFLOW_FRONTEND_RUNTIME_CONFIG_APP_ROUTING_STRATEGY: path_based
-      SPIFFWORKFLOW_HOST: "${SPIFFWORKFLOW_SERVER_NAME:-localhost}"
+      SPIFFWORKFLOW_HOST: "${SPIFFWORKFLOW_HOST:-localhost}"
       SPIFFWORKFLOW_FRONTEND_RUNTIME_CONFIG_BACKEND_BASE_URL: "${SPIFFWORKFLOW_PROTOCOL:-http}://${SPIFFWORKFLOW_HOST:-localhost}:${SPIFFWORKFLOW_PORT:-8003}/api"
     ports:
       - "${SPIFFWORKFLOW_FRONTEND_PORT:-8001}:${SPIFFWORKFLOW_FRONTEND_PORT:-8001}/tcp"
@@ -102,7 +102,7 @@ services:
       - spiffworkflow-frontend
       - spiffworkflow-backend
     environment:
-      SERVER_NAME: "${SPIFFWORKFLOW_SERVER_NAME:-localhost}"
+      SERVER_NAME: "${SPIFFWORKFLOW_HOST:-localhost}"
 volumes:
   spiffworkflow_backend_db:
     driver: local
