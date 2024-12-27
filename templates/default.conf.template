@@ -1,8 +1,8 @@
 error_log /dev/stdout info;
 server {
-    listen ${NGINX_PORT:-3003};
+    listen ${NGINX_PORT};
     access_log /dev/stdout;
-    server_name ${NGINX_SERVER_NAME:-localhost};
+    server_name ${NGINX_SERVER_NAME};
 
     location / {
         proxy_pass http://spiffworkflow-frontend:3001;
