@@ -93,7 +93,7 @@ services:
     container_name: proxy
     image: nginx:latest
     ports:
-      - "${SPIFFWORKFLOW_PORT:-3003}:80"
+      - "${SPIFFWORKFLOW_PORT:-3003}:3006"
     volumes:
       - .devcontainer/nginx.conf:/etc/nginx/conf.d/default.conf
       - .devcontainer/template-variables:/etc/nginx/templates/10-variables.conf.template:ro
