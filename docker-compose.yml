@@ -13,8 +13,8 @@ services:
       SPIFFWORKFLOW_FRONTEND_RUNTIME_CONFIG_APP_ROUTING_STRATEGY: path_based
       SPIFFWORKFLOW_HOST: "${SPIFFWORKFLOW_HOST:-localhost}"
       SPIFFWORKFLOW_FRONTEND_RUNTIME_CONFIG_BACKEND_BASE_URL: "${SPIFFWORKFLOW_PROTOCOL:-http}://${SPIFFWORKFLOW_HOST:-localhost}:${SPIFFWORKFLOW_PORT:-3003}/api"
-    ports:
-      - "${SPIFFWORKFLOW_FRONTEND_PORT:-3001}:${SPIFFWORKFLOW_FRONTEND_PORT:-3001}/tcp"
+    # ports:
+    #   - "${SPIFFWORKFLOW_FRONTEND_PORT:-3001}:${SPIFFWORKFLOW_FRONTEND_PORT:-3001}/tcp"
 
   spiffworkflow-backend:
     depends_on:
@@ -46,8 +46,8 @@ services:
       SPIFFWORKFLOW_BACKEND_OPEN_ID_INTERNAL_URL_IS_VALID_ISSUER: true
       SPIFFWORKFLOW_BACKEND_WSGI_PATH_PREFIX: /api
       SPIFFWORKFLOW_BACKEND_USE_WERKZEUG_MIDDLEWARE_PROXY_FIX: true
-    ports:
-      - "${SPIFFWORKFLOW_BACKEND_PORT:-3000}:${SPIFFWORKFLOW_BACKEND_PORT:-3000}/tcp"
+    # ports:
+    #   - "${SPIFFWORKFLOW_BACKEND_PORT:-3000}:${SPIFFWORKFLOW_BACKEND_PORT:-3000}/tcp"
     volumes:
       - ./process_models:/app/process_models
       - spiffworkflow_backend_db:/app/db_volume
@@ -63,8 +63,8 @@ services:
       POSTGRES_USER: spiffuser
       POSTGRES_PASSWORD: spiffpass
       POSTGRES_DB: spiffworkflow
-    ports:
-      - "3005:5432"
+    # ports:
+    #   - "3005:5432"
     volumes:
       - spiffworkflow_backend_db:/var/lib/postgresql/data
     healthcheck:
@@ -81,8 +81,8 @@ services:
       FLASK_DEBUG: "0"
       FLASK_SESSION_SECRET_KEY: "${FLASK_SESSION_SECRET_KEY:-super_secret_key}"
       CONNECTOR_PROXY_PORT: "${SPIFF_CONNECTOR_PORT:-3004}"
-    ports:
-      - "${SPIFF_CONNECTOR_PORT:-3004}:${SPIFF_CONNECTOR_PORT:-3004}/tcp"
+    # ports:
+    #   - "${SPIFF_CONNECTOR_PORT:-3004}:${SPIFF_CONNECTOR_PORT:-3004}/tcp"
     healthcheck:
       test: "curl http://localhost:${SPIFF_CONNECTOR_PORT:-3004}/liveness --fail"
       interval: 10s
