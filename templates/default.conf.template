@@ -1,11 +1,11 @@
 error_log /dev/stdout info;
 server {
-    listen 80;
+    listen ${NGINX_PORT};
     access_log /dev/stdout;
-    server_name $my_server_name;
+    server_name ${NGINX_SERVER_NAME};
 
     location / {
-        proxy_pass http://spiffworkflow-frontend:8001;
+        proxy_pass http://spiffworkflow-frontend:3001;
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
@@ -13,11 +13,7 @@ server {
     }
 
     location /api {
-        proxy_pass http://spiffworkflow-backend:8000;
-        # proxy_set_header X-Forwarded-Host $host:$server_port;
-        # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        # proxy_set_header X-Forwarded-Proto $scheme;
-        # proxy_set_header X-Forwarded-Prefix /api;
+        proxy_pass http://spiffworkflow-backend:3000;
         proxy_set_header Host $host:$server_port;
     }
 }
