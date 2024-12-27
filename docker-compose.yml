@@ -93,16 +93,16 @@ services:
     container_name: proxy
     image: nginx:latest
     ports:
-      - "${SPIFFWORKFLOW_PORT:-3003}:3006"
+      - "${SPIFFWORKFLOW_PORT:-3003}:${SPIFFWORKFLOW_PORT:-3003}"
     volumes:
-      - .devcontainer/nginx.conf:/etc/nginx/conf.d/default.conf
-      - .devcontainer/template-variables:/etc/nginx/templates/10-variables.conf.template:ro
-
+      # By default, an entrypoint function reads template files in /etc/nginx/templates/*.template and outputs the result of executing envsubst to /etc/nginx/conf.d.
+      - ./templates:/etc/nginx/templates
     depends_on:
       - spiffworkflow-frontend
       - spiffworkflow-backend
     environment:
-      SERVER_NAME: "${SPIFFWORKFLOW_HOST:-localhost}"
+      NGINX_SERVER_NAME: "${SPIFFWORKFLOW_HOST:-localhost}"
+      NGINX_PORT: "${SPIFFWORKFLOW_PORT:-3003}"
 volumes:
   spiffworkflow_backend_db:
     driver: local
