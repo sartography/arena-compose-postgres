@@ -38,7 +38,7 @@ services:
       SPIFFWORKFLOW_BACKEND_OPEN_ID_CLIENT_SECRET_KEY: "my_open_id_secret_key"
       SPIFFWORKFLOW_BACKEND_PORT: "3000"
       SPIFFWORKFLOW_BACKEND_OPEN_ID_SERVER_URL: "${SPIFFWORKFLOW_PROTOCOL:-http}://${SPIFFWORKFLOW_HOST:-localhost}:${SPIFFWORKFLOW_PORT:-3003}/api/openid"
-      SPIFFWORKFLOW_BACKEND_PERMISSIONS_FILE_NAME: "example.yml"
+      SPIFFWORKFLOW_BACKEND_PERMISSIONS_FILE_ABSOLUTE_PATH: "/app/permissions/example.yml"
       SPIFFWORKFLOW_BACKEND_RUN_BACKGROUND_SCHEDULER_IN_CREATE_APP: "true"
       SPIFFWORKFLOW_BACKEND_UPGRADE_DB: "true"
       SPIFFWORKFLOW_BACKEND_URL_FOR_FRONTEND: "${SPIFFWORKFLOW_PROTOCOL:-http}://${SPIFFWORKFLOW_HOST:-localhost}:${SPIFFWORKFLOW_PORT:-3003}"
@@ -50,6 +50,7 @@ services:
     #   - "${SPIFFWORKFLOW_BACKEND_PORT:-3000}:${SPIFFWORKFLOW_BACKEND_PORT:-3000}/tcp"
     volumes:
       - ./process_models:/app/process_models
+      - ./configs/permissions:/app/permissions
       - spiffworkflow_backend_db:/app/db_volume
     healthcheck:
       test: "curl http://localhost:${SPIFFWORKFLOW_BACKEND_PORT:-3000}/api/v1.0/status --fail"
