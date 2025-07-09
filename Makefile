@@ -20,6 +20,9 @@ destroy-db:	 ## Delete the database docker volume
 		sudo rm "$$mountpoint/db.sqlite3"; \
 	fi
 
+logs:
+	docker compose logs -f
+
 down:	 ## Shut down containers, but leave images and database data around
 	@docker compose down
 
