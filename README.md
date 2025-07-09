@@ -19,18 +19,10 @@ This application consists of a frontend and a backend service, a PostgreSQL data
 1. Run `make up` to start all services. The services will be available on the following default ports:
     * Access the frontend at `http://localhost:3001`, where `3001` is the default port for the frontend service.
     * Access the backend API at `http://localhost:3000/v1.0`, where `3000` is the default port for the backend service.
-2. Run `make down` to stop all services.
-
-#### Running docker compose directly
-
-This is useful when it is necessary to pass in different environment variables
-1. Run `docker compose up` to start all services
     * Environment variables found the docker-compose.yml can be overwritten like:
 
-      `SPIFFWORKFLOW_PORT=80 SPIFFWORKFLOW_HOST=localhost docker compose up`
-
-    * By default the url to connect to the frontend and backend will be the same as when running with make
-2. Run `docker compose down` to stop all services
+      `SPIFFWORKFLOW_PORT=80 SPIFFWORKFLOW_HOST=localhost make up`
+2. Run `make down` to stop all services.
 
 ### Database Access:
 
