@@ -59,6 +59,7 @@ services:
       retries: 20
 
   spiffdb:
+    container_name: spiffdb
     image: postgres:latest
     environment:
       POSTGRES_USER: spiffuser
