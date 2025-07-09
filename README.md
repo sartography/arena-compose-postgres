@@ -13,16 +13,13 @@ This application consists of a frontend and a backend service, a PostgreSQL data
 
 1. Ensure Docker and Docker Compose are installed on your system.
 2. Clone the repository and navigate to the directory containing the `docker-compose.yml` file. The default ports are set in this file, but you can change them if needed.
-
-#### Using make
-
-1. Run `make up` to start all services. The services will be available on the following default ports:
+3. Run `make up` to start all services. The services will be available on the following default ports:
     * Access the frontend at `http://localhost:3001`, where `3001` is the default port for the frontend service.
     * Access the backend API at `http://localhost:3000/v1.0`, where `3000` is the default port for the backend service.
     * Environment variables found the docker-compose.yml can be overwritten like:
 
       `SPIFFWORKFLOW_PORT=80 SPIFFWORKFLOW_HOST=localhost make up`
-2. Run `make down` to stop all services.
+4. Run `make down` to stop all services.
 
 ### Database Access:
 
