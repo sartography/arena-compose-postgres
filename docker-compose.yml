@@ -68,7 +68,7 @@ services:
     # ports:
     #   - "3005:5432"
     volumes:
-      - spiffworkflow_backend_db:/var/lib/postgresql/data
+      - spiffworkflow_backend_db:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U spiffuser -d spiffworkflow"]
       interval: 10s
